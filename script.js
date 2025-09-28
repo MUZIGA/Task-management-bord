@@ -147,3 +147,14 @@ function deleteTask(id) {
   saveTasks();
   render();
 }
+
+function editTask(id) {
+  const task = tasks.find((t) => t.id === id);
+  const newName = prompt("Edit task name:", task.name);
+  if (!newName) return;
+  const newDue = prompt("Edit due date (YYYY-MM-DD):", task.due);
+  task.name = newName.trim();
+  task.due = newDue;
+  saveTasks();
+  render();
+}
