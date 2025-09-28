@@ -134,3 +134,10 @@ function render(animate = false) {
     taskList.appendChild(li);
   });
 }
+function toggleComplete(id) {
+  tasks = tasks.map((t) =>
+    t.id === id ? { ...t, completed: !t.completed } : t
+  );
+  saveTasks();
+  render();
+}
