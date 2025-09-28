@@ -37,3 +37,34 @@ filterBtns.forEach((btn) =>
     render();
   })
 );
+// Functions
+function genId() {
+  return "t_" + Math.random().toString(36).slice(2, 9);
+}
+
+function loadTasks() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) return JSON.parse(raw);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleTasks));
+  return [...sampleTasks];
+}
+
+function saveTasks() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+}
+
+function addTask() {
+  const name = taskName.value.trim();
+  const due = taskDue.value;
+  if (!name) {
+    alert("Task name cannot be empty");
+    return;
+  }
+  const newTask = { id: genId(), name, due, completed: false };
+  tasks.push(newTask);
+  saveTasks();
+  taskName.value = "";
+  taskDue.value = "";
+  render(true);
+}
+
