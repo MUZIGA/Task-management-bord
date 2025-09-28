@@ -20,3 +20,20 @@ const emptyState = document.getElementById("emptyState");
 const filterBtns = document.querySelectorAll(".filter-btn");
 
 render();
+
+// Events
+taskForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addTask();
+});
+
+filterBtns.forEach((btn) =>
+  btn.addEventListener("click", () => {
+    filter = btn.dataset.filter;
+    filterBtns.forEach((b) =>
+      b.classList.remove("bg-indigo-600", "text-white")
+    );
+    btn.classList.add("bg-indigo-600", "text-white");
+    render();
+  })
+);
