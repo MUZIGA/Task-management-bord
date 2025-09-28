@@ -141,3 +141,9 @@ function toggleComplete(id) {
   saveTasks();
   render();
 }
+function deleteTask(id) {
+  if (!confirm("Are you sure you want to delete this task?")) return;
+  tasks = tasks.filter((t) => t.id !== id);
+  saveTasks();
+  render();
+}
