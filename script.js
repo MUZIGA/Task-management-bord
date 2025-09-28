@@ -9,3 +9,14 @@ const sampleTasks = [
   { id: genId(), name: "Refactor code", due: "", completed: false },
   { id: genId(), name: "Add README", due: "2025-09-28", completed: false },
 ];
+let tasks = loadTasks();
+let filter = "all";
+
+const taskList = document.getElementById("taskList");
+const taskForm = document.getElementById("taskForm");
+const taskName = document.getElementById("taskName");
+const taskDue = document.getElementById("taskDue");
+const emptyState = document.getElementById("emptyState");
+const filterBtns = document.querySelectorAll(".filter-btn");
+
+render();
