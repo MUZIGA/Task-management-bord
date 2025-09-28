@@ -68,3 +68,69 @@ function addTask() {
   render(true);
 }
 
+function render(animate = false) {
+  let toRender = tasks.slice();
+  if (filter === "pending") toRender = toRender.filter((t) => !t.completed);
+  if (filter === "completed") toRender = toRender.filter((t) => t.completed);
+
+  taskList.innerHTML = "";
+  if (toRender.length === 0) {
+    emptyState.classList.remove("hidden");
+    return;
+  }
+  emptyState.classList.add("hidden");
+
+  toRender.forEach((task) => {
+    const li = document.createElement("li");
+    li.className =
+      "bg-white p-3 rounded shadow flex justify-between items-center";
+
+    const left = document.createElement("div");
+    left.className = "flex items-center gap-3";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed;
+    checkbox.addEventListener("change", () => toggleComplete(task.id));
+
+    const meta = document.createElement("div");
+
+    const title = document.createElement("div");
+    title.textContent = task.name;
+    title.className = "font-medium";
+    if (task.completed) {
+      title.classList.add("line-through", "text-gray-400");
+    }
+
+    const due = document.createElement("div");
+    due.className = "text-xs text-gray-500";
+    due.textContent = task.due ? `Due: ${task.due}` : "No due date";
+
+    meta.appendChild(title);
+    meta.appendChild(due);
+
+    left.appendChild(checkbox);
+    left.appendChild(meta);
+
+    const actions = document.createElement("div");
+    actions.className = "flex gap-2";
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.className = "px-2 py-1 border rounded";
+    editBtn.addEventListener("click", () => editTask(task.id));
+
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "Delete";
+    delBtn.className = "px-2 py-1 border rounded";
+    delBtn.addEventListener("click", () => deleteTask(task.id));
+
+    actions.appendChild(editBtn);
+    actions.appendChild(delBtn);
+
+    li.appendChild(left);
+    li.appendChild(actions);
+
+    taskList.appendChild(li);
+  });
+}
