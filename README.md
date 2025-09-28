@@ -14,3 +14,4 @@ JavaScript (ES6)
 Tailwind CSS
 LocalStorage
 
+![alt text](image.png)
